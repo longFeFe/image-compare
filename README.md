@@ -11,14 +11,14 @@ cmake ..
 make -j4  
 make install
 
-## Windows平台编译方法：
+## Windows平台编译方法
 修改 CMakeLists.txt 中的opencv安装路径  
 打开 VS开发人员命令 控制台  
 cd images-compare/build  
 cmake ..  
 cmake --build . --config Release   
 
-## Linux平台编译方法：    
+## Linux平台编译方法    
 cd images-compare/build  
 cmake ..  
 make 
