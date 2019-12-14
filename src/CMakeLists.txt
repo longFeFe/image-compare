@@ -1,0 +1,36 @@
+PROJECT(imagecompare)
+SET(HEAD_FILES interface.h)
+SET(SRC_FILES interface.cpp)
+#编译动态库
+ADD_LIBRARY(${PROJECT_NAME} SHARED  ${SRC_FILES})
+
+IF (${RUN_PLATFORM} STREQUAL "Linux")
+	target_link_libraries(${PROJECT_NAME} opencv_core)
+	target_link_libraries(${PROJECT_NAME} opencv_imgproc)
+	target_link_libraries(${PROJECT_NAME} opencv_highgui)
+	# target_link_libraries(${PROJECT_NAME} libjpeg)
+	# target_link_libraries(${PROJECT_NAME} libpng)
+	# target_link_libraries(${PROJECT_NAME} IlmImf)
+	# target_link_libraries(${PROJECT_NAME} libtiff)
+	# target_link_libraries(${PROJECT_NAME} libjasper)
+	# target_link_libraries(${PROJECT_NAME} zlib)
+ELSE ()
+	#opencv 安装路径
+	SET(OPENCV "E:/3rdparty/opencv")
+	LINK_DIRECTORIES(${OPENCV}/build/x86/vc14/staticlib)
+	INCLUDE_DIRECTORIES(${OPENCV}/build/include)
+	
+	#MSVC 编译选项
+	SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MANIFEST:NO /RELEASE")
+	SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+	
+	target_link_libraries(${PROJECT_NAME} opencv_core2413)
+	target_link_libraries(${PROJECT_NAME} opencv_imgproc2413)
+	target_link_libraries(${PROJECT_NAME} opencv_highgui2413)
+	target_link_libraries(${PROJECT_NAME} libjpeg)
+	target_link_libraries(${PROJECT_NAME} libpng)
+	target_link_libraries(${PROJECT_NAME} IlmImf)
+	target_link_libraries(${PROJECT_NAME} libtiff)
+	target_link_libraries(${PROJECT_NAME} libjasper)
+	target_link_libraries(${PROJECT_NAME} zlib)
+ENDIF ()
